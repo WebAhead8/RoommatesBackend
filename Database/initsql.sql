@@ -1,38 +1,39 @@
 BEGIN;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users,posts;
 Create table users(
   id serial primary key,
   username varchar(255) not null,
-  pass varchar(16),
-  email varchar(255),
-  gender varchar (10),
+  pass varchar(16) not null,
+  email varchar(255) not null,
+  gender varchar (10) check ,
   age INTEGER,
   currentloc varchar (255) ,
   moveto varchar(255),
   university varchar (255),
-  -- price INTEGER,
-  -- roommatesnum INTEGER,
+  price INTEGER,
+  roommatesnum INTEGER,
   studying varchar(255),
-  -- pic image 
+  pic varchar(255) 
+  
 )
+ 
+ create table users_traits(
+  id SERIAL PRIMARY KEY ,
+  trait varchar(255) ,
+  user_id INTEGER REFERENCES users(id)
+ 
+ )
 
 
--- Create table traits(
--- id serial primary key not null,
--- -- traits varchar(255),
 
-
-
-
--- )
 
 create table posts(
  id SERIAL PRIMARY KEY ,
-    comment TEXT,
+    comment  varchar(255),
     user_id INTEGER REFERENCES users(id),
 );
     
--- ceate table chat(
+-- create table chat(
 
 
 -- )
