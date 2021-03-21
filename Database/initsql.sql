@@ -10,8 +10,8 @@ Create table users(
   currentloc varchar (255) ,
   moveto varchar(255),
   university varchar (255),
-  price INTEGER,
-  roommatesnum INTEGER,
+  -- price INTEGER,
+  -- roommatesnum INTEGER,
   studying varchar(255),
   -- pic image 
 )
