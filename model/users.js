@@ -30,7 +30,7 @@ function createUser(user) {
       return result.rows;
     });
 }
-function getUser(email) {
+function getUserByEmail(email) {
   const values = [email];
   return db.query("select * from users where email=$1", values).then((data) => {
     if (!data.rows.length)
@@ -38,7 +38,7 @@ function getUser(email) {
     return data.rows[0];
   });
 }
-function getUser(username) {
+function getUserByUsername(username) {
   const values = [username];
   return db
     .query("select * from users where username=$1", values)
@@ -56,3 +56,36 @@ function getUserById(id) {
     return data.rows[0];
   });
 }
+function updateUser(id, newUser) {
+  const values = [
+    id,
+    newUser.username,
+    newUser.pass,
+    newUser.email,
+    newUser.gender,
+    newUser.age,
+    newUser.currentloc,
+    newUser.moveto,
+    newUser.university,
+    newUser.studing,
+    newUser.pic,
+  ];
+  return {
+    db: query("select * from users where id=$1", values).then((data) => {
+      if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
+      return data.rows[0];
+    }),
+    db: query(
+      "INSERT INTO users(user.username, user.pass, user.email,user.gender,user.age,user.currentloc,user.moveto,user.university,user.studing,user.pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10) ",
+      values
+    ),
+  };
+}
+module.exports = {
+  createUser,
+  getUserByEmail,
+  getUserByUsername,
+  getUserById,
+  updateUser,
+  getAllUser,
+};
