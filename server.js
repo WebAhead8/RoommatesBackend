@@ -2,7 +2,7 @@ const express = require("express");
 const server = express();
 
 server.get("/", (req, res) => {
-  res.send("<h1>home</h1>");
+  res.send("<h1>haneen10</h1>");
 });
 server.get("/allposts", (req, res) => {
   res.send("<h1>allposts</h1>");
