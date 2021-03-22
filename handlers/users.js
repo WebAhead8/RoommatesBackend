@@ -33,7 +33,7 @@ function postUsers(req, res, next) {
     .genSalt(10)
     .then((salt) => bcrypt.hash(hashPass, salt))
     .then((hash) => {
-      userData.user_pass = hash;
+      userData.pass = hash;
       model
         .createUser(userData)
         .then((user) => {
@@ -44,12 +44,12 @@ function postUsers(req, res, next) {
             username: user.username,
             pass: hash,
             email: user.email,
-            gender=user.gender,
+            gender: user.gender,
             currentloc: user.loc,
-            moveto:user.moveto,
-            university:user.university,
-            studing:user.studing,
-            pic:user.pic,
+            moveto: user.moveto,
+            university: user.university,
+            studing: user.studing,
+            pic: user.pic,
             access_token: token,
           };
           res.status(201).send(response);
