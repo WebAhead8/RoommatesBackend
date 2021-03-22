@@ -1,5 +1,8 @@
 const express = require("express");
 const server = express();
+const comments = require("./handlers/comments");
+const cors = require("cors");
+server.use(express.json());
 
 server.get("/", (req, res) => {
   res.send("<h1>haneen10</h1>");
@@ -38,3 +41,9 @@ server.get("/findroommates", (req, res) => {
 server.listen(3000, () =>
   console.log("Server listening on http:localhost:3000")
 );
+
+// Comments Requests
+server.post("/comment", comments.postComment); //add auth
+server.delete("/comment/:id", comments.delComment);
+server.get("/comments/:id", comments.getComments);
+server.put("/comment/:id", comments.updateComment); //add auth
