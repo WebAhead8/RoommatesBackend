@@ -1,6 +1,7 @@
 const express = require("express");
 const server = express();
 const comments = require("./handlers/comments");
+const posts = require("./handlers/postsHandler");
 const cors = require("cors");
 server.use(express.json());
 
@@ -47,3 +48,6 @@ server.post("/comment", comments.postComment); //add auth
 server.delete("/comment/:id", comments.delComment);
 server.get("/comments/:id", comments.getComments);
 server.put("/comment/:id", comments.updateComment); //add auth
+
+// Posts Requests
+server.post("/post", posts.addPostHandler); //add auth
