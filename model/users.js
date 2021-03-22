@@ -8,22 +8,23 @@ function getAllUser() {
   });
 }
 
-function createUser(user) {
+function createUser(newUser) {
   const values = [
-    user.username,
-    user.pass,
-    user.email,
-    user.gender,
-    user.age,
-    user.currentloc,
-    user.moveto,
-    user.university,
-    user.studing,
-    user.pic,
+    newUser.username,
+    newUser.pass,
+    newUser.email,
+    newUser.gender,
+    newUser.age,
+    newUser.currentloc,
+    newUser.moveto,
+    newUser.university,
+    newUser.roommatesnum,
+    newUser.studing,
+    newUser.pic,
   ];
   return db
     .query(
-      "INSERT INTO users(user.username, user.pass, user.email,user.gender,user.age,user.currentloc,user.moveto,user.university,user.studing,user.pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10)  returning *",
+      "INSERT INTO users(newUser.username, newUser.pass, newUser.email,newUser.gender,newUser.age,newUser.currentloc,newUser.moveto,newUser.university,newUser.roommatesnum,newUser.studing,newUser.pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11)  returning *",
       values
     )
     .then((result) => {
@@ -56,27 +57,29 @@ function getUserById(id) {
     return data.rows[0];
   });
 }
-function updateUser(id, newUser) {
+function updateUser(id, user) {
   const values = [
     id,
-    newUser.username,
-    newUser.pass,
-    newUser.email,
-    newUser.gender,
-    newUser.age,
-    newUser.currentloc,
-    newUser.moveto,
-    newUser.university,
-    newUser.studing,
-    newUser.pic,
+    user.username,
+    user.pass,
+    user.email,
+    user.gender,
+    user.age,
+    user.currentloc,
+    user.moveto,
+    user.university,
+    user.roommatesnum,
+    user.studing,
+    user.pic,
   ];
   return {
     db: query("select * from users where id=$1", values).then((data) => {
       if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
+      console.log(data);
       return data.rows[0];
     }),
     db: query(
-      "INSERT INTO users(user.username, user.pass, user.email,user.gender,user.age,user.currentloc,user.moveto,user.university,user.studing,user.pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10) ",
+      "INSERT INTO users(user.username, user.pass, user.email,user.gender,user.age,user.currentloc,user.moveto,user.university,user.roommatesnum,user.studing,user.pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11) ",
       values
     ),
   };

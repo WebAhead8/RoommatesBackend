@@ -1,3 +1,4 @@
+
 BEGIN;
 DROP TABLE IF EXISTS users,users_traits,posts;
 Create table users(
@@ -46,6 +47,7 @@ INSERT INTO users (username, pass, email, gender,age,currentloc,moveto,universit
 
 
 COMMIT;
+
 
 
 
