@@ -1,8 +1,14 @@
 const express = require("express");
-const server = express();
+const users = require("./handlers/users");
 const comments = require("./handlers/comments");
 const cors = require("cors");
+const errorHandler = require("./middleware/error");
+const auth = require("./middleware/auth");
+
+const server = express();
 server.use(express.json());
+server.use(errorHandler);
+server.use(cors());
 
 server.get("/", (req, res) => {
   res.send("<h1>haneen10</h1>");
@@ -27,9 +33,9 @@ server.get("/signup", (req, res) => {
 server.get("/signup2", (req, res) => {
   res.send("<h1>signup2</h1>");
 });
-server.get("/login", (req, res) => {
-  res.send("<h1>login</h1>");
-});
+// server.get("/login", (req, res) => {
+//   res.send("<h1>login</h1>");
+// });
 
 server.get("/chat", (req, res) => {
   res.send("<h1>chat</h1>");
@@ -43,7 +49,9 @@ server.listen(3000, () =>
 );
 
 // Comments Requests
-server.post("/comment", comments.postComment); //add auth
+server.post("/comment", auth, comments.postComment); //add auth
 server.delete("/comment/:id", comments.delComment);
 server.get("/comments/:id", comments.getComments);
 server.put("/comment/:id", comments.updateComment); //add auth
+
+server.post("/login", users.login);
