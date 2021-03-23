@@ -51,9 +51,9 @@ server.listen(3000, () =>
 
 // Comments Requests
 server.post("/comment", auth, comments.postComment); //add auth
-server.delete("/comment/:id", comments.delComment);
+server.delete("/comment/:id", auth, comments.delComment);
 server.get("/comments/:id", comments.getComments);
-server.put("/comment/:id", comments.updateComment); //add auth
+server.put("/comment/:id", auth, comments.updateComment); //add auth
 
 // Posts Requests
 server.post("/post", posts.addPostHandler); //add auth
