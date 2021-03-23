@@ -18,12 +18,28 @@ function addComment(newComment) {
     });
 }
 
-function delComment(id) {
+function delComment(id, currentUserId) {
   return db
-    .query(`DELETE FROM comments WHERE id = ($1)`, [id])
+    .query(`SELECT user_id FROM comments WHERE id = ($1)`, [id])
     .then((result) => {
+      console.log("reslttt:", result.rows[0].user_id);
+      console.log("currrent:", currentUserId);
+      if (result.rows[0].user_id !== currentUserId) {
+        throw new Error("You can't delete");
+      } else {
+        db.query(`DELETE FROM comments WHERE id = ($1)`, [id]).then(
+          (result) => {
+            return result;
+          }
+        );
+      }
       return result;
     });
+  // return db
+  //   .query(`DELETE FROM comments WHERE id = ($1)`, [id])
+  //   .then((result) => {
+  //     return result;
+  //   });
 }
 
 function getComments(post_id) {
