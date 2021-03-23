@@ -12,8 +12,9 @@ function postComment(req, res, next) {
 
 function delComment(req, res, next) {
   const id = req.params.id;
+  const currentUserId = req.user.id;
   model
-    .delComment(id)
+    .delComment(id, currentUserId)
     .then(() => {
       res.status(204).send();
     })
@@ -32,8 +33,10 @@ function getComments(req, res, next) {
 function updateComment(req, res, next) {
   const id = req.params.id;
   const newComment = req.body.comment;
+  const currentUserId = req.user.id;
+
   model
-    .updateComment(id, newComment)
+    .updateComment(id, newComment, currentUserId)
     .then((data) => {
       res.status(200).send(data);
     })

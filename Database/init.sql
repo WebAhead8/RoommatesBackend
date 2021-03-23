@@ -1,4 +1,3 @@
-
 BEGIN;
 DROP TABLE IF EXISTS users,users_traits,posts,comments;
 Create table users(
@@ -26,18 +25,24 @@ Create table users(
  );
  
 
-
-
 create table posts(
  id SERIAL PRIMARY KEY ,
-    post  varchar(255),
+    post  TEXT,
     user_id INTEGER REFERENCES users(id)
 );
+CREATE TABLE comments(
+    id SERIAL PRIMARY KEY,
+    comment TEXT,
+    user_id INTEGER REFERENCES users(id),
+    post_id INTEGER REFERENCES posts(id)
+);
+
     
 -- create table chat(
 
 
 -- )
+
 
 INSERT INTO users (username, pass, email, gender,age,currentloc,moveto,university,price,roommatesnum,studying,pic) VALUES
   ('Haneen', '123123', 'haneen@gmail.com', 'female', 24 , 'Nazareth' , 'Tel-aviv', 'Tel-aviv', 1600 , 1,'Biomedical-engineering','https://www.gardendesign.com/pictures/images/675x529Max/site_3/helianthus-yellow-flower-pixabay_11863.jpg')
@@ -45,12 +50,10 @@ INSERT INTO users (username, pass, email, gender,age,currentloc,moveto,universit
   -- ('Khaled', '123123', 'khaled@gmail.com', 'Sakhnin')
 ;
 
+INSERT INTO posts (post , user_id) VALUES ('Hello , My name is Haneen',1);
+INSERT INTO comments (comment , user_id , post_id) VALUES ('Hello',1,1);
+
+
 
 COMMIT;
-
-
-
-
-
-
 
