@@ -63,21 +63,25 @@ function login(req, res, next) {
   const password = req.body.pass;
 
   model
-    .getUser(email)
+    .getUserByEmail(email)
     .then((user) => {
       if (user) {
-        bcrypt.compare(password, user.pass).then((match) => {
-          if (!match) {
-            const error = new Error("Incorrect Password");
-            status = 404;
-            next(error);
-          } else {
-            const token = jwt.sign({ user: user.id }, SECRET, {
-              expiresIn: "1h",
-            });
-            res.status(200).send({ access_token: token, user: user.username });
-          }
-        });
+        // bcrypt.compare(password, user.pass).then((match) => {
+        //   if (!match) {
+        //     const error = new Error("Incorrect Password");
+        //     status = 404;
+        //     next(error);
+        if (password !== user.pass) {
+          const error = new Error("Incorrect Password");
+          status = 404;
+          next(error);
+        } else {
+          const token = jwt.sign({ user: user.id }, SECRET, {
+            expiresIn: "1h",
+          });
+          res.status(200).send({ access_token: token, user: user.username });
+        }
+        // });
       } else {
         const error = new Error("no user Found");
         error.status = 404;

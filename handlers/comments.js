@@ -2,9 +2,8 @@ const model = require("../model/comments");
 
 function postComment(req, res, next) {
   const newComment = req.body;
-  console.log("handler ", req.body);
   model
-    .addComment(newComment)
+    .addComment({ ...newComment, user_id: req.user.id })
     .then((comments) => {
       res.status(201).send(comments);
     })
@@ -33,8 +32,6 @@ function getComments(req, res, next) {
 function updateComment(req, res, next) {
   const id = req.params.id;
   const newComment = req.body.comment;
-  console.log("newComment: ", newComment);
-
   model
     .updateComment(id, newComment)
     .then((data) => {
