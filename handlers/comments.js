@@ -33,8 +33,10 @@ function getComments(req, res, next) {
 function updateComment(req, res, next) {
   const id = req.params.id;
   const newComment = req.body.comment;
+  const currentUserId = req.user.id;
+
   model
-    .updateComment(id, newComment)
+    .updateComment(id, newComment, currentUserId)
     .then((data) => {
       res.status(200).send(data);
     })
