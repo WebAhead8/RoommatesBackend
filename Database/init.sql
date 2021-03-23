@@ -1,6 +1,6 @@
 
 BEGIN;
-DROP TABLE IF EXISTS users,users_traits,posts;
+DROP TABLE IF EXISTS users,users_traits,posts,comments;
 Create table users(
   id serial primary key,
   username varchar(255) not null,
@@ -24,7 +24,7 @@ Create table users(
   user_id INTEGER REFERENCES users(id)
  
  );
-
+ 
 
 
 

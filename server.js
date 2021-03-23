@@ -55,6 +55,8 @@ server.delete("/comment/:id", comments.delComment);
 server.get("/comments/:id", comments.getComments);
 server.put("/comment/:id", comments.updateComment); //add auth
 
-// Posts Requests
+// Posts Requests /posts here is the DB table
 server.post("/post", posts.addPostHandler); //add auth
+server.delete("/post/:id", posts.delPostHandler); //add auth
+
 server.post("/login", users.login);

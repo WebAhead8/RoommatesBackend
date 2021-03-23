@@ -10,7 +10,15 @@ function addPostmodel(newPost) {
       return result.rows;
     });
 }
+function delPostmodel(delPostId) {
+  return db
+    .query(`DELETE FROM posts WHERE id =($1)`, [delPostId])
+    .then((result) => {
+      return result;
+    });
+}
 
 module.exports = {
   addPostmodel,
+  delPostmodel,
 };
