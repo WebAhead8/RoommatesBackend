@@ -12,8 +12,9 @@ function postComment(req, res, next) {
 
 function delComment(req, res, next) {
   const id = req.params.id;
+  const currentUserId = req.user.id;
   model
-    .delComment(id)
+    .delComment(id, currentUserId)
     .then(() => {
       res.status(204).send();
     })
