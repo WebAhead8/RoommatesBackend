@@ -58,8 +58,7 @@ function getUserById(id) {
   });
 }
 function updateUser(id, user) {
-  const values = [
-    id,
+  const val = [
     user.username,
     user.pass,
     user.email,
@@ -69,21 +68,30 @@ function updateUser(id, user) {
     user.moveto,
     user.university,
     user.roommatesnum,
-    user.studing,
+    user.studying,
     user.pic,
+    id,
   ];
-  return {
-    db: query("select * from users where id=$1", values).then((data) => {
-      if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
-      console.log(data);
-      return data.rows[0];
-    }),
-    db: query(
-      "INSERT INTO users(user.username, user.pass, user.email,user.gender,user.age,user.currentloc,user.moveto,user.university,user.roommatesnum,user.studing,user.pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11) ",
-      values
-    ),
-  };
+  console.log(val);
+  return db
+    .query(
+      `UPDATE  users SET username=$1, pass=$2,email=$3,gender=$4,age=$5,currentloc=$6,moveto=$7,university=$8,roommatesnum=$9,studying=$10,pic=$11 where id=$12 returning *   `,
+      val
+    )
+
+    .then((result) => {
+      return result.rows;
+    });
 }
+//   return {
+//     db: query("select * from users where id=$1", values).then((data) => {
+//       if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
+//       console.log(data);
+//       return data.rows[0];
+//     }),
+//     db: query(`UPDATE  users set user = $1 where id =$2`, values),
+//   };
+// }
 module.exports = {
   createUser,
   getUserByEmail,

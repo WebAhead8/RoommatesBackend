@@ -94,15 +94,13 @@ function login(req, res, next) {
     .catch(next);
 }
 
-function put(req, res, next) {
+function putUser(req, res, next) {
   const userId = req.params.id;
   const newUser = req.body;
   model
-    .getUserById(userId)
+    .updateUser(userId, newUser)
     .then((user) => {
-      model.updateUser(userId, newUser).then((user) => {
-        res.status(200).send(user);
-      });
+      res.status(200).send(user);
     })
     .catch(next);
 }
@@ -124,4 +122,4 @@ function getUserByToken(req, res, next) {
     .catch(next);
 }
 
-module.exports = { get, getAll, postUsers, login, put, getUserByToken };
+module.exports = { get, getAll, postUsers, login, putUser, getUserByToken };
