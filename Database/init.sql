@@ -23,7 +23,7 @@ Create table users(
   user_id INTEGER REFERENCES users(id)
  
  );
-
+ 
 
 create table posts(
  id SERIAL PRIMARY KEY ,
