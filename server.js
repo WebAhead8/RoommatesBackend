@@ -1,6 +1,7 @@
 const express = require("express");
 const users = require("./handlers/users");
 const comments = require("./handlers/comments");
+const posts = require("./handlers/postsHandler");
 const cors = require("cors");
 const errorHandler = require("./middleware/error");
 const auth = require("./middleware/auth");
