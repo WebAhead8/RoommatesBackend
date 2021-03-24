@@ -38,6 +38,7 @@ function updateComment(req, res, next) {
   model
     .updateComment(id, newComment, currentUserId)
     .then((data) => {
+      console.log(1);
       res.status(200).send(data);
     })
     .catch(next);

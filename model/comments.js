@@ -63,13 +63,16 @@ function updateComment(id, newComment, currentUserId) {
       if (result.rows[0].user_id !== currentUserId) {
         throw new Error("You can't update");
       } else {
-        db.query(`UPDATE comments SET comment = $2 WHERE id =$1`, values).then(
-          (result) => {
-            return result.rows;
-          }
-        );
+        return db
+          .query(
+            `UPDATE comments SET comment = $2 WHERE id =$1  returning *`,
+            values
+          )
+          .then((data) => {
+            console.log(data.rows[0]);
+            return data.rows[0];
+          });
       }
-      return result;
     });
 }
 

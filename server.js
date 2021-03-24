@@ -8,7 +8,6 @@ const auth = require("./middleware/auth");
 
 const server = express();
 server.use(express.json());
-server.use(errorHandler);
 server.use(cors());
 
 // server.get("/", (req, res) => {
@@ -55,3 +54,5 @@ server.get("/users/", users.getAll);
 server.get("/users/:id", users.get); //user's profile don't use it!!!!!!!!!!!!!!!!!
 server.post("/users", users.postUsers);
 server.put("/users/:id", users.putUser);
+
+server.use(errorHandler);
