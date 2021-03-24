@@ -45,10 +45,13 @@ function postUsers(req, res, next) {
             pass: hash,
             email: user.email,
             gender: user.gender,
+            age: user.age,
             currentloc: user.loc,
             moveto: user.moveto,
             university: user.university,
-            studing: user.studing,
+            price: user.price,
+            roommatesnum: user.roommatesnum,
+            studying: user.studing,
             pic: user.pic,
             access_token: token,
           };
@@ -66,22 +69,22 @@ function login(req, res, next) {
     .getUserByEmail(email)
     .then((user) => {
       if (user) {
-        // bcrypt.compare(password, user.pass).then((match) => {
-        //   if (!match) {
-        //     const error = new Error("Incorrect Password");
-        //     status = 404;
-        //     next(error);
-        if (password !== user.pass) {
-          const error = new Error("Incorrect Password");
-          status = 404;
-          next(error);
-        } else {
-          const token = jwt.sign({ user: user.id }, SECRET, {
-            expiresIn: "1h",
-          });
-          res.status(200).send({ access_token: token, user: user.username });
-        }
-        // });
+        bcrypt.compare(password, user.pass).then((match) => {
+          if (!match) {
+            const error = new Error("Incorrect Password");
+            status = 404;
+            next(error);
+            // if (password !== user.pass) {
+            //   const error = new Error("Incorrect Password");
+            //   status = 404;
+            //   next(error);
+          } else {
+            const token = jwt.sign({ user: user.id }, SECRET, {
+              expiresIn: "1h",
+            });
+            res.status(200).send({ access_token: token, user: user.username });
+          }
+        });
       } else {
         const error = new Error("no user Found");
         error.status = 404;

@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS users,users_traits,posts,comments;
 Create table users(
   id serial primary key,
   username varchar(255) not null,
-  pass varchar(16) not null,
+  pass varchar(255) not null,
   email varchar(255) not null,
   gender varchar (10) ,
   age INTEGER,
@@ -45,13 +45,10 @@ CREATE TABLE comments(
 
 
 INSERT INTO users (username, pass, email, gender,age,currentloc,moveto,university,price,roommatesnum,studying,pic) VALUES
-  ('Haneen', '123123', 'haneen@gmail.com', 'female', 24 , 'Nazareth' , 'Tel-aviv', 'Tel-aviv', 1600 , 1,'Biomedical-engineering','https://www.gardendesign.com/pictures/images/675x529Max/site_3/helianthus-yellow-flower-pixabay_11863.jpg')
-  -- ('May', '123123', 'may@gmail.com', 'Nazareth'),
-  -- ('Khaled', '123123', 'khaled@gmail.com', 'Sakhnin')
-;
+  ('Haneen', '123123', 'haneen@gmail.com', 'female', 24 , 'Nazareth' , 'Tel-aviv', 'Tel-aviv', 1600 , 1,'Biomedical-engineering','https://www.gardendesign.com/pictures/images/675x529Max/site_3/helianthus-yellow-flower-pixabay_11863.jpg');
 
-INSERT INTO posts (post , user_id) VALUES ('Hello , My name is Haneen',1);
-INSERT INTO comments (comment , user_id , post_id) VALUES ('Hello',1,1);
+-- INSERT INTO posts (post , user_id) VALUES ('Hello , My name is Haneen',1);
+-- INSERT INTO comments (comment , user_id , post_id) VALUES ('Hello',1,1);
 
 
 

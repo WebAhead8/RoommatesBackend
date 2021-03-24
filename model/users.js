@@ -24,7 +24,7 @@ function createUser(newUser) {
   ];
   return db
     .query(
-      "INSERT INTO users(newUser.username, newUser.pass, newUser.email,newUser.gender,newUser.age,newUser.currentloc,newUser.moveto,newUser.university,newUser.roommatesnum,newUser.studing,newUser.pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11)  returning *",
+      "INSERT INTO users(username, pass,email,gender,age,currentloc,moveto,university,roommatesnum,studying,pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11)  returning *",
       values
     )
     .then((result) => {
