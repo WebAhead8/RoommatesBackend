@@ -12,9 +12,35 @@ function addPostHandler(req, res, next) {
 }
 
 function delPostHandler(req, res, next) {
-  const delPostId = req.params.id; //take id frome the frontend
+  const delPostId = req.params.id; //take id frome the frontend'
+  // to fill in all the comments  for the get
   model
-    .delPostmodel(delPostId)
+    .delPostComments(delPostId)
+    .then(() => {
+      return model.delPostmodel(delPostId);
+    })
+    .then(() => {
+      res.status(201).send();
+    })
+    .catch(next);
+}
+function getAllPostsHandler(req, res, next) {
+  model
+
+    .getallpostsmodel()
+    .then((data) => {
+      res.status(201).send(data);
+    })
+
+    .catch(next);
+}
+
+function updatePostHandler(req, res, next) {
+  const updatePostId = req.params.id; //take id frome the frontend'
+  const newPost = req.body.post;
+  // to fill in all the comments  for the get
+  model
+    .updatePostModel(newPost, updatePostId)
     .then(() => {
       res.status(201).send();
     })
@@ -24,4 +50,6 @@ function delPostHandler(req, res, next) {
 module.exports = {
   addPostHandler,
   delPostHandler,
+  getAllPostsHandler,
+  updatePostHandler,
 };

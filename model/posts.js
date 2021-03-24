@@ -11,8 +11,32 @@ function addPostmodel(newPost) {
     });
 }
 function delPostmodel(delPostId) {
+  console.log(delPostId);
   return db
-    .query(`DELETE FROM posts WHERE id =($1)`, [delPostId])
+    .query(`DELETE FROM posts WHERE id =$1`, [delPostId])
+    .then((result) => {
+      return result;
+    });
+}
+
+function delPostComments(delPostId) {
+  return db
+    .query(`DELETE FROM comments WHERE post_id =$1`, [delPostId])
+    .then((result) => {
+      return result;
+    });
+}
+
+function getallpostsmodel() {
+  return db.query(`SELECT * FROM posts`).then((result) => {
+    console.log(result);
+    return result;
+  });
+}
+
+function updatePostModel(newPost, updatePostId) {
+  return db
+    .query(`UPDATE  posts set post = $1 where id =$2`, [newPost, updatePostId])
     .then((result) => {
       return result;
     });
@@ -21,4 +45,8 @@ function delPostmodel(delPostId) {
 module.exports = {
   addPostmodel,
   delPostmodel,
+  delPostComments,
+  getallpostsmodel,
+  // getallpostComments,
+  updatePostModel,
 };

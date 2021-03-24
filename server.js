@@ -14,9 +14,7 @@ server.use(cors());
 server.get("/", (req, res) => {
   res.send("<h1>haneen10</h1>");
 });
-server.get("/allposts", (req, res) => {
-  res.send("<h1>allposts</h1>");
-});
+//
 server.get("/myporfile", (req, res) => {
   res.send("<h1>myporfile</h1>");
 });
@@ -58,5 +56,7 @@ server.put("/comment/:id", auth, comments.updateComment); //add auth
 // Posts Requests /posts here is the DB table
 server.post("/post", posts.addPostHandler); //add auth
 server.delete("/post/:id", posts.delPostHandler); //add auth
+server.put("/post/:id", posts.updatePostHandler); //add auth
+server.get("/allposts", posts.getAllPostsHandler); //add auth
 
 server.post("/login", users.login);
