@@ -11,27 +11,27 @@ server.use(express.json());
 server.use(errorHandler);
 server.use(cors());
 
-server.get("/", (req, res) => {
-  res.send("<h1>haneen10</h1>");
-});
-//
-server.get("/myporfile", (req, res) => {
-  res.send("<h1>myporfile</h1>");
-});
-server.get("/allprofiles", (req, res) => {
-  res.send("<h1>allprofiles</h1>");
-});
+// server.get("/", (req, res) => {
+//   res.send("<h1>haneen10</h1>");}
+// // });
+// //
+// server.get("/myporfile", (req, res) => {
+//   res.send("<h1>myporfile</h1>");
+// });
+// server.get("/allprofiles", (req, res) => {
+//   res.send("<h1>allprofiles</h1>");
+// });
 
-server.get("/aboutus", (req, res) => {
-  res.send("<h1>aboutus</h1>");
-});
+// server.get("/aboutus", (req, res) => {
+//   res.send("<h1>aboutus</h1>");
+// });
 
-server.get("/chat", (req, res) => {
-  res.send("<h1>chat</h1>");
-});
-server.get("/findroommates", (req, res) => {
-  res.send("<h1>findroommates</h1>");
-});
+// server.get("/chat", (req, res) => {
+//   res.send("<h1>chat</h1>");
+// });
+// server.get("/findroommates", (req, res) => {
+//   res.send("<h1>findroommates</h1>");
+// });
 
 server.listen(3000, () =>
   console.log("Server listening on http:localhost:3000")
@@ -49,7 +49,9 @@ server.delete("/post/:id", posts.delPostHandler); //add auth
 server.put("/post/:id", posts.updatePostHandler); //add auth
 server.get("/allposts", posts.getAllPostsHandler); //add auth
 
+//users Request
 server.post("/login", users.login);
 server.get("/users/", users.getAll);
-server.get("/users/:id", users.get);
+server.get("/users/:id", users.get); //user's profile don't use it!!!!!!!!!!!!!!!!!
 server.post("/users", users.postUsers);
+server.put("/users/:id", users.putUser);
