@@ -12,8 +12,7 @@ function addPostHandler(req, res, next) {
 }
 
 function delPostHandler(req, res, next) {
-  const delPostId = req.params.id; //take id frome the frontend'
-  // to fill in all the comments  for the get
+  const delPostId = req.params.id;
   model
     .delPostComments(delPostId)
     .then(() => {
@@ -36,9 +35,9 @@ function getAllPostsHandler(req, res, next) {
 }
 
 function updatePostHandler(req, res, next) {
-  const updatePostId = req.params.id; //take id frome the frontend'
+  const updatePostId = req.params.id;
   const newPost = req.body.post;
-  // to fill in all the comments  for the get
+
   model
     .updatePostModel(newPost, updatePostId)
     .then(() => {

@@ -30,7 +30,7 @@ function delPostComments(delPostId) {
 function getallpostsmodel() {
   return db.query(`SELECT * FROM posts`).then((result) => {
     console.log(result);
-    return result;
+    return result.rows;
   });
 }
 
@@ -47,6 +47,6 @@ module.exports = {
   delPostmodel,
   delPostComments,
   getallpostsmodel,
-  // getallpostComments,
+
   updatePostModel,
 };
