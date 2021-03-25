@@ -121,5 +121,32 @@ function getUserByToken(req, res, next) {
     })
     .catch(next);
 }
+function getTraits(req, res, next) {
+  const id = req.params.id;
+  model
+    .getUserTraits(id)
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(next);
+}
+function delTrait(req, res, next) {
+  const id = req.params.id;
+  model
+    .delTrait(id)
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(next);
+}
 
-module.exports = { get, getAll, postUsers, login, putUser, getUserByToken };
+module.exports = {
+  get,
+  getAll,
+  postUsers,
+  login,
+  putUser,
+  getUserByToken,
+  getTraits,
+  delTrait,
+};

@@ -55,4 +55,7 @@ server.get("/users/:id", users.get); //user's profile don't use it!!!!!!!!!!!!!!
 server.post("/users", users.postUsers);
 server.put("/users/:id", users.putUser);
 
+//traits Requests
+server.get("/traits/:id", users.getTraits);
+server.delete("/trait/:id", users.delTrait);
 server.use(errorHandler);
