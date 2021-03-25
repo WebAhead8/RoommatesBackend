@@ -32,8 +32,8 @@ server.use(cors());
 //   res.send("<h1>findroommates</h1>");
 // });
 
-server.listen(3000, () =>
-  console.log("Server listening on http:localhost:3000")
+server.listen(4000, () =>
+  console.log("Server listening on http:localhost:4000")
 );
 
 // Comments Requests
@@ -54,5 +54,8 @@ server.get("/users/", users.getAll);
 server.get("/users/:id", users.get); //user's profile don't use it!!!!!!!!!!!!!!!!!
 server.post("/users", users.postUsers);
 server.put("/users/:id", users.putUser);
+
+//traits Requests
+server.get("/traits/:id", users.getTraits);
 
 server.use(errorHandler);
