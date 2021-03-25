@@ -130,6 +130,15 @@ function getTraits(req, res, next) {
     })
     .catch(next);
 }
+function delTrait(req, res, next) {
+  const id = req.params.id;
+  model
+    .delTrait(id)
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(next);
+}
 
 module.exports = {
   get,
@@ -139,4 +148,5 @@ module.exports = {
   putUser,
   getUserByToken,
   getTraits,
+  delTrait,
 };

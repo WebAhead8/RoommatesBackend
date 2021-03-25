@@ -57,5 +57,5 @@ server.put("/users/:id", users.putUser);
 
 //traits Requests
 server.get("/traits/:id", users.getTraits);
-
+server.delete("/trait/:id", users.delTrait);
 server.use(errorHandler);

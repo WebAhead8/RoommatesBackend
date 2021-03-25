@@ -101,7 +101,13 @@ function getUserTraits(id) {
       return data.rows[0];
     });
 }
-
+function delTrait(id) {
+  return db
+    .query(`DELETE FROM users_traits WHERE id =$1`, [id])
+    .then((result) => {
+      return result;
+    });
+}
 module.exports = {
   createUser,
   getUserByEmail,
@@ -110,4 +116,5 @@ module.exports = {
   updateUser,
   getAllUser,
   getUserTraits,
+  delTrait,
 };
