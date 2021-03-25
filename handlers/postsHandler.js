@@ -2,7 +2,6 @@ const model = require("../model/posts");
 
 function addPostHandler(req, res, next) {
   const newPost = req.body;
-
   model
     .addPostmodel(newPost)
     .then((newPost) => {

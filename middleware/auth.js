@@ -1,7 +1,6 @@
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const model = require("../model/users");
-// const model = requinpm re("../model/Comments");
 dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
@@ -14,9 +13,8 @@ function verifyUser(req, res, next) {
   } else {
     const token = authHeader;
     try {
-      console.log("aaddddaaa", token);
       const tokenData = jwt.verify(token, SECRET);
-      console.log("toooooken:", tokenData);
+
       model
         .getUserById(tokenData.user)
         .then((user) => {

@@ -43,9 +43,9 @@ server.get("/comments/:id", comments.getComments);
 server.put("/comment/:id", auth, comments.updateComment); //add auth
 
 // Posts Requests /posts here is the DB table
-server.post("/post", posts.addPostHandler); //add auth
-server.delete("/post/:id", posts.delPostHandler); //add auth
-server.put("/post/:id", posts.updatePostHandler); //add auth
+server.post("/post", auth, posts.addPostHandler); //add auth
+server.delete("/post/:id", auth, posts.delPostHandler); //add auth
+server.put("/post/:id", auth, posts.updatePostHandler); //add auth
 server.get("/allposts", posts.getAllPostsHandler); //add auth
 
 //users Request
