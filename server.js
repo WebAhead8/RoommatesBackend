@@ -54,6 +54,8 @@ server.get("/users/", users.getAll);
 server.get("/users/:id", users.get); //user's profile don't use it!!!!!!!!!!!!!!!!!
 server.post("/users", users.postUsers);
 server.put("/users/:id", users.putUser);
+// server.get("/myprofile", auth, users.get);
+server.get("/myprofile", users.getUserByToken);
 
 //traits Requests
 server.get("/traits/:id", users.getTraits);
