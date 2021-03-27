@@ -109,10 +109,16 @@ function updateMyProfile(req, res, next) {
   const token = req.headers.authorization;
   const userId = jwt.verify(token, SECRET);
   const newUser = req.body;
-  model
-    .updateUser(userId.user, newUser)
-    .then((user) => {
-      res.status(200).send(user);
+  const hashPass = req.body.pass;
+
+  bcrypt
+    .genSalt(10)
+    .then((salt) => bcrypt.hash(hashPass, salt))
+    .then((hash) => {
+      newUser.pass = hash;
+      model.updateUser(userId.user, newUser).then((user) => {
+        res.status(200).send(user);
+      });
     })
     .catch(next);
 }
