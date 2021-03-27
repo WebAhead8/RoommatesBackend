@@ -5,7 +5,7 @@ function postComment(req, res, next) {
   model
     .addComment({ ...newComment, user_id: req.user.id })
     .then((comments) => {
-      res.status(201).send(comments);
+      res.status(200).send(comments);
     })
     .catch(next);
 }
@@ -16,7 +16,7 @@ function delComment(req, res, next) {
   model
     .delComment(id, currentUserId)
     .then(() => {
-      res.status(204).send();
+      res.status(200).send();
     })
     .catch(next);
 }

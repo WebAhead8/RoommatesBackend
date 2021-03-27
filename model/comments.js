@@ -45,7 +45,7 @@ function delComment(id, currentUserId) {
 function getComments(post_id) {
   return db
     .query(
-      `SELECT post_id,user_id,username,comment 
+      `SELECT post_id,user_id,username,comment , comments.id
     FROM comments
     INNER JOIN users ON comments.user_id = users.id
      WHERE post_id = ($1)`,

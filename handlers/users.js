@@ -105,9 +105,21 @@ function putUser(req, res, next) {
     .catch(next);
 }
 
+function updateMyProfile(req, res, next) {
+  const token = req.headers.authorization;
+  const userId = jwt.verify(token, SECRET);
+  const newUser = req.body;
+  model
+    .updateUser(userId.user, newUser)
+    .then((user) => {
+      res.status(200).send(user);
+    })
+    .catch(next);
+}
+
 function getUserByToken(req, res, next) {
   const token = req.headers.authorization;
-  const userID = jwt.verify(token, process.env.JWT_SECRET);
+  const userID = jwt.verify(token, SECRET);
   model
     .getUserById(userID.user)
     .then((user) => {
@@ -149,4 +161,5 @@ module.exports = {
   getUserByToken,
   getTraits,
   delTrait,
+  updateMyProfile,
 };
