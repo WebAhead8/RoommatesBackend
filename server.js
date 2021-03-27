@@ -56,6 +56,7 @@ server.post("/users", users.postUsers);
 server.put("/users/:id", users.putUser);
 // server.get("/myprofile", auth, users.get);
 server.get("/myprofile", users.getUserByToken);
+server.put("/mynewprofile", users.updateMyProfile);
 
 //traits Requests
 server.get("/traits/:id", users.getTraits);
