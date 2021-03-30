@@ -40,4 +40,9 @@ server.put("/mynewprofile", users.updateMyProfile);
 //traits Requests
 server.get("/traits/:id", users.getTraits);
 server.delete("/trait/:id", users.delTrait);
+server.post("/traits", users.postTraits);
+
 server.use(errorHandler);
+server.listen(4000, () =>
+  console.log("Server listening on http:localhost:4000")
+);

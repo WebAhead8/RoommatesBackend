@@ -59,6 +59,9 @@ INSERT INTO users (username, pass, email, gender,age,currentloc,moveto,universit
 INSERT INTO users_traits (trait,user_id) VALUES (ARRAY['quit','smoke'],1);
 
 
+INSERT INTO posts (post , user_id) VALUES ('Hello , My name is Haneen',1);
+-- INSERT INTO comments (comment , user_id , post_id) VALUES ('Hello',1,1);
+ 
 
 
 COMMIT;

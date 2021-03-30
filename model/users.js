@@ -3,7 +3,8 @@ const db = require("../Database/connection");
 function getAllUser() {
   return db
     .query(
-      "select * from users left join users_traits on users.id = users_traits.user_id"
+      "select * , users.id from users left join users_traits on users.id = users_traits.user_id"
+      // "select * from users"
     )
     .then((data) => {
       // if (!data.rows.length)
@@ -26,7 +27,7 @@ function createUser(newUser) {
     newUser.university,
     newUser.price,
     newUser.roommatesnum,
-    newUser.studing,
+    newUser.studying,
     newUser.pic,
   ];
   return db
@@ -35,7 +36,8 @@ function createUser(newUser) {
       values
     )
     .then((result) => {
-      return result.rows;
+      console.log("rrrrrrr:", result.rows);
+      return result.rows[0];
     });
 }
 function getUserByEmail(email) {
@@ -59,10 +61,15 @@ function getUserByUsername(username) {
 
 function getUserById(id) {
   const values = [id];
-  return db.query("select * from users where id=$1", values).then((data) => {
-    if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
-    return data.rows[0];
-  });
+  return db
+    .query(
+      "select * from users left join users_traits on users.id = users_traits.user_id where users.id=$1",
+      values
+    )
+    .then((data) => {
+      if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
+      return data.rows[0];
+    });
 }
 function updateUser(id, user) {
   const val = [
@@ -83,7 +90,7 @@ function updateUser(id, user) {
   console.log(val);
   return db
     .query(
-      `UPDATE  users SET username=$1, pass=$2,email=$3,gender=$4,age=$5,currentloc=$6,moveto=$7,university=$8, price=$9,roommatesnum=$10,studying=$11,pic=$12 where id=$13 returning *   `,
+      `UPDATE  users SET username=$1, pass=$2,email=$3,gender=$4,age=$5,currentloc=$6,moveto=$7,university=$8,price=$9,roommatesnum=$10,studying=$11,pic=$12 where id=$13 returning *   `,
       val
     )
 
@@ -109,11 +116,25 @@ function getUserTraits(id) {
       return data.rows[0];
     });
 }
+
 function delTrait(id) {
   return db
     .query(`DELETE FROM users_traits WHERE id =$1`, [id])
     .then((result) => {
       return result;
+    });
+}
+
+function postUserTraits(trait, userId) {
+  const values = [trait, userId];
+  return db
+    .query(
+      "INSERT INTO users_traits (trait,user_id) VALUES($1,$2)returning *",
+      values
+    )
+    .then((data) => {
+      if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
+      return data.rows[0];
     });
 }
 module.exports = {
@@ -125,4 +146,5 @@ module.exports = {
   getAllUser,
   getUserTraits,
   delTrait,
+  postUserTraits,
 };

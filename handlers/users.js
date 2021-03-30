@@ -28,6 +28,7 @@ function get(req, res, next) {
 function postUsers(req, res, next) {
   const userData = req.body;
   const hashPass = req.body.pass;
+  console.log(userData);
 
   bcrypt
     .genSalt(10)
@@ -108,13 +109,26 @@ function putUser(req, res, next) {
 function updateMyProfile(req, res, next) {
   const token = req.headers.authorization;
   const userId = jwt.verify(token, SECRET);
-  const newUser = req.body;
-  model
-    .updateUser(userId.user, newUser)
-    .then((user) => {
-      res.status(200).send(user);
+  const newUser = req.body.myprofile;
+  const hashPass = req.body.myprofile.pass;
+  // model.getUserById(userId.user).then((user) => {
+  // if (!bcrypt.compare(hashPass, user.pass)) {
+  console.log("reqqq:", req.body);
+  // const hashPass = "123123";
+  console.log("neeew:", hashPass);
+  bcrypt
+    .genSalt(10)
+    .then((salt) => bcrypt.hash(hashPass, salt))
+    .then((hash) => {
+      console.log("here");
+      newUser.pass = hash;
+
+      model.updateUser(userId.user, newUser).then((user) => {
+        res.status(200).send(user);
+      });
     })
     .catch(next);
+  // });
 }
 
 function getUserByToken(req, res, next) {
@@ -134,6 +148,7 @@ function getUserByToken(req, res, next) {
     .catch(next);
 }
 function getTraits(req, res, next) {
+  console.log("ggg");
   const id = req.params.id;
   model
     .getUserTraits(id)
@@ -151,6 +166,17 @@ function delTrait(req, res, next) {
     })
     .catch(next);
 }
+function postTraits(req, res, next) {
+  const userId = req.body.user_id;
+  const newTrait = req.body.trait;
+
+  model
+    .postUserTraits(newTrait, userId)
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(next);
+}
 
 module.exports = {
   get,
@@ -162,4 +188,5 @@ module.exports = {
   getTraits,
   delTrait,
   updateMyProfile,
+  postTraits,
 };
