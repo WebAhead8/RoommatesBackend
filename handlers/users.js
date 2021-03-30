@@ -28,6 +28,7 @@ function get(req, res, next) {
 function postUsers(req, res, next) {
   const userData = req.body;
   const hashPass = req.body.pass;
+  console.log(userData);
 
   bcrypt
     .genSalt(10)

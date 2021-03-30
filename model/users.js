@@ -1,13 +1,20 @@
 const db = require("../Database/connection");
 
 function getAllUser() {
-  return db.query("select * from users").then((data) => {
-    if (!data.rows.length)
-      throw new Error(`No user with email '${email}' found`);
-    return data.rows;
-  });
+  return db
+    .query(
+      "select * , users.id from users left join users_traits on users.id = users_traits.user_id"
+      // "select * from users"
+    )
+    .then((data) => {
+      // if (!data.rows.length)
+      // throw new Error(`No user with email '${email}' found`);
+      return data.rows;
+    });
 }
-
+getAllUser().then((data) => {
+  console.log(data);
+});
 function createUser(newUser) {
   const values = [
     newUser.username,
@@ -20,7 +27,7 @@ function createUser(newUser) {
     newUser.university,
     newUser.price,
     newUser.roommatesnum,
-    newUser.studing,
+    newUser.studying,
     newUser.pic,
   ];
   return db
@@ -29,7 +36,8 @@ function createUser(newUser) {
       values
     )
     .then((result) => {
-      return result.rows;
+      console.log("rrrrrrr:", result.rows);
+      return result.rows[0];
     });
 }
 function getUserByEmail(email) {
@@ -53,10 +61,15 @@ function getUserByUsername(username) {
 
 function getUserById(id) {
   const values = [id];
-  return db.query("select * from users where id=$1", values).then((data) => {
-    if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
-    return data.rows[0];
-  });
+  return db
+    .query(
+      "select * from users left join users_traits on users.id = users_traits.user_id where users.id=$1",
+      values
+    )
+    .then((data) => {
+      if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
+      return data.rows[0];
+    });
 }
 function updateUser(id, user) {
   const val = [
