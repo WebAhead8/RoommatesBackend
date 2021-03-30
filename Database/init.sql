@@ -54,11 +54,17 @@ INSERT INTO users (username, pass, email, gender,age,currentloc,moveto,universit
       ('Hanaa', '123123', 'hanaa@gmail.com', 'female', 18, 'Tel Aviv District' , 'Haifa District', 'University of Haifa', 4000 , 1,' Natural sciences','https://www.gardendesign.com/pictures/images/675x529Max/site_3/helianthus-yellow-flower-pixabay_11863.jpg'),
     ('Mohamed', '123123', 'mohamed@gmail.com', 'male', 43 , 'Jerusalem District' , 'HaSharon District', 'Ben-Gurion University', 2500 , 1,'Systems science','https://www.gardendesign.com/pictures/images/675x529Max/site_3/helianthus-yellow-flower-pixabay_11863.jpg');
 
+<<<<<<< HEAD
 
 
 INSERT INTO users_traits (trait,user_id) VALUES (ARRAY['quit','smoke'],1);
 
 
+=======
+INSERT INTO posts (post , user_id) VALUES ('Hello , My name is Haneen',1);
+-- INSERT INTO comments (comment , user_id , post_id) VALUES ('Hello',1,1);
+INSERT INTO users_traits (trait , user_id) VALUES ('happy',1);
+>>>>>>> main
 
 
 COMMIT;

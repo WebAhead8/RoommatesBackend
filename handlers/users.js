@@ -105,9 +105,21 @@ function putUser(req, res, next) {
     .catch(next);
 }
 
+function updateMyProfile(req, res, next) {
+  const token = req.headers.authorization;
+  const userId = jwt.verify(token, SECRET);
+  const newUser = req.body;
+  model
+    .updateUser(userId.user, newUser)
+    .then((user) => {
+      res.status(200).send(user);
+    })
+    .catch(next);
+}
+
 function getUserByToken(req, res, next) {
   const token = req.headers.authorization;
-  const userID = jwt.verify(token, process.env.JWT_SECRET);
+  const userID = jwt.verify(token, SECRET);
   model
     .getUserById(userID.user)
     .then((user) => {
@@ -121,5 +133,33 @@ function getUserByToken(req, res, next) {
     })
     .catch(next);
 }
+function getTraits(req, res, next) {
+  const id = req.params.id;
+  model
+    .getUserTraits(id)
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(next);
+}
+function delTrait(req, res, next) {
+  const id = req.params.id;
+  model
+    .delTrait(id)
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(next);
+}
 
-module.exports = { get, getAll, postUsers, login, putUser, getUserByToken };
+module.exports = {
+  get,
+  getAll,
+  postUsers,
+  login,
+  putUser,
+  getUserByToken,
+  getTraits,
+  delTrait,
+  updateMyProfile,
+};

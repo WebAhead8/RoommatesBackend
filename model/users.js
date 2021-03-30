@@ -98,6 +98,22 @@ function updateUser(id, user) {
 //     db: query(`UPDATE  users set user = $1 where id =$2`, values),
 //   };
 // }
+function getUserTraits(id) {
+  const values = [id];
+  return db
+    .query("select * from users_traits where user_id=$1", values)
+    .then((data) => {
+      if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
+      return data.rows[0];
+    });
+}
+function delTrait(id) {
+  return db
+    .query(`DELETE FROM users_traits WHERE id =$1`, [id])
+    .then((result) => {
+      return result;
+    });
+}
 module.exports = {
   createUser,
   getUserByEmail,
@@ -105,4 +121,6 @@ module.exports = {
   getUserById,
   updateUser,
   getAllUser,
+  getUserTraits,
+  delTrait,
 };
