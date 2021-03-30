@@ -16,7 +16,7 @@ function delComment(req, res, next) {
   model
     .delComment(id, currentUserId)
     .then(() => {
-      res.status(200).send();
+      res.status(200).send({});
     })
     .catch(next);
 }

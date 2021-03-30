@@ -7,8 +7,8 @@ const errorHandler = require("./middleware/error");
 const auth = require("./middleware/auth");
 
 const server = express();
-server.use(express.json());
 server.use(cors());
+server.use(express.json());
 
 // server.get("/", (req, res) => {
 //   res.send("<h1>haneen10</h1>");}
@@ -31,10 +31,6 @@ server.use(cors());
 // server.get("/findroommates", (req, res) => {
 //   res.send("<h1>findroommates</h1>");
 // });
-
-server.listen(4000, () =>
-  console.log("Server listening on http:localhost:4000")
-);
 
 // Comments Requests
 server.post("/comment", auth, comments.postComment); //add auth
@@ -61,4 +57,9 @@ server.put("/mynewprofile", users.updateMyProfile);
 //traits Requests
 server.get("/traits/:id", users.getTraits);
 server.delete("/trait/:id", users.delTrait);
+server.post("/traits", users.postTraits);
+
 server.use(errorHandler);
+server.listen(4000, () =>
+  console.log("Server listening on http:localhost:4000")
+);

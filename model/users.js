@@ -18,13 +18,14 @@ function createUser(newUser) {
     newUser.currentloc,
     newUser.moveto,
     newUser.university,
+    newUser.price,
     newUser.roommatesnum,
     newUser.studing,
     newUser.pic,
   ];
   return db
     .query(
-      "INSERT INTO users(username, pass,email,gender,age,currentloc,moveto,university,roommatesnum,studying,pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11)  returning *",
+      "INSERT INTO users(username, pass,email,gender,age,currentloc,moveto,university,price,roommatesnum,studying,pic) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12)  returning *",
       values
     )
     .then((result) => {
@@ -67,6 +68,7 @@ function updateUser(id, user) {
     user.currentloc,
     user.moveto,
     user.university,
+    user.price,
     user.roommatesnum,
     user.studying,
     user.pic,
@@ -75,7 +77,7 @@ function updateUser(id, user) {
   console.log(val);
   return db
     .query(
-      `UPDATE  users SET username=$1, pass=$2,email=$3,gender=$4,age=$5,currentloc=$6,moveto=$7,university=$8,roommatesnum=$9,studying=$10,pic=$11 where id=$12 returning *   `,
+      `UPDATE  users SET username=$1, pass=$2,email=$3,gender=$4,age=$5,currentloc=$6,moveto=$7,university=$8,price=$9,roommatesnum=$10,studying=$11,pic=$12 where id=$13 returning *   `,
       val
     )
 
@@ -101,11 +103,25 @@ function getUserTraits(id) {
       return data.rows[0];
     });
 }
+
 function delTrait(id) {
   return db
     .query(`DELETE FROM users_traits WHERE id =$1`, [id])
     .then((result) => {
       return result;
+    });
+}
+
+function postUserTraits(trait, userId) {
+  const values = [trait, userId];
+  return db
+    .query(
+      "INSERT INTO users_traits (trait,user_id) VALUES($1,$2)returning *",
+      values
+    )
+    .then((data) => {
+      if (!data.rows.length) throw new Error(`No user with id '${id}' found`);
+      return data.rows[0];
     });
 }
 module.exports = {
@@ -117,4 +133,5 @@ module.exports = {
   getAllUser,
   getUserTraits,
   delTrait,
+  postUserTraits,
 };
