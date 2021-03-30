@@ -16,7 +16,7 @@ server.listen(
   // Comments Requests
 );
 
-server.post("/comment", comments.postComment); //add auth
+server.post("/comment", auth, comments.postComment); //add auth
 server.delete("/comment/:id", auth, comments.delComment);
 server.get("/comments/:id", comments.getComments);
 server.put("/comment/:id", auth, comments.updateComment); //add auth
