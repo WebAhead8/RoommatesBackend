@@ -1,13 +1,19 @@
 const db = require("../Database/connection");
 
 function getAllUser() {
-  return db.query("select * from users").then((data) => {
-    if (!data.rows.length)
-      throw new Error(`No user with email '${email}' found`);
-    return data.rows;
-  });
+  return db
+    .query(
+      "select * from users left join users_traits on users.id = users_traits.user_id"
+    )
+    .then((data) => {
+      // if (!data.rows.length)
+      // throw new Error(`No user with email '${email}' found`);
+      return data.rows;
+    });
 }
-
+getAllUser().then((data) => {
+  console.log(data);
+});
 function createUser(newUser) {
   const values = [
     newUser.username,

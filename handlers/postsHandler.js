@@ -18,7 +18,7 @@ function delPostHandler(req, res, next) {
       return model.delPostmodel(delPostId);
     })
     .then(() => {
-      res.status(201).send();
+      res.status(201).send({});
     })
     .catch(next);
 }
