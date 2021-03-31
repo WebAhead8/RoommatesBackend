@@ -28,10 +28,17 @@ function delPostComments(delPostId) {
 }
 
 function getallpostsmodel() {
-  return db.query(`SELECT * FROM posts`).then((result) => {
-    console.log(result);
-    return result.rows;
-  });
+  return db
+    .query(
+      `SELECT * , posts.id
+      FROM posts
+      INNER JOIN users
+      ON posts.user_id = users.id;`
+    )
+    .then((result) => {
+      console.log(result);
+      return result.rows;
+    });
 }
 
 function updatePostModel(newPost, updatePostId) {

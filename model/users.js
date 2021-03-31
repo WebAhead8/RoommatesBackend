@@ -63,7 +63,7 @@ function getUserById(id) {
   const values = [id];
   return db
     .query(
-      "select * from users left join users_traits on users.id = users_traits.user_id where users.id=$1",
+      "select * ,users.id from users left join users_traits on users.id = users_traits.user_id where users.id=$1",
       values
     )
     .then((data) => {

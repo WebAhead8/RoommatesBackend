@@ -110,23 +110,24 @@ function updateMyProfile(req, res, next) {
   const token = req.headers.authorization;
   const userId = jwt.verify(token, SECRET);
   const newUser = req.body.myprofile;
-  const hashPass = req.body.myprofile.pass;
+  // const hashPass = req.body.myprofile.pass;
   // model.getUserById(userId.user).then((user) => {
   // if (!bcrypt.compare(hashPass, user.pass)) {
   console.log("reqqq:", req.body);
   // const hashPass = "123123";
-  console.log("neeew:", hashPass);
-  bcrypt
-    .genSalt(10)
-    .then((salt) => bcrypt.hash(hashPass, salt))
-    .then((hash) => {
-      console.log("here");
-      newUser.pass = hash;
+  // bcrypt
+  //   .genSalt(10)
+  //   .then((salt) => bcrypt.hash(hashPass, salt))
+  //   .then((hash) => {
+  //     console.log("here");
+  //     newUser.pass = hash;
 
-      model.updateUser(userId.user, newUser).then((user) => {
-        res.status(200).send(user);
-      });
+  model
+    .updateUser(userId.user, newUser)
+    .then((user) => {
+      res.status(200).send(user);
     })
+    // })
     .catch(next);
   // });
 }
