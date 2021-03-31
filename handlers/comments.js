@@ -2,6 +2,7 @@ const model = require("../model/comments");
 
 function postComment(req, res, next) {
   const newComment = req.body;
+  console.log("iddd:", req.user);
   model
     .addComment({ ...newComment, user_id: req.user.id })
     .then((comments) => {
