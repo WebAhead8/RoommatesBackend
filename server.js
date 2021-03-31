@@ -10,11 +10,11 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-server.listen(
-  4000,
-  () => console.log("Server listening on http:localhost:4000")
-  // Comments Requests
-);
+// server.listen(
+//   4000,
+//   () => console.log("Server listening on http:localhost:4000")
+//   // Comments Requests
+// );
 
 server.post("/comment", auth, comments.postComment); //add auth
 server.delete("/comment/:id", auth, comments.delComment);
@@ -43,6 +43,4 @@ server.delete("/trait/:id", users.delTrait);
 server.post("/traits", users.postTraits);
 
 server.use(errorHandler);
-server.listen(4000, () =>
-  console.log("Server listening on http:localhost:4000")
-);
+server.listen(4000, () => console.log("Server listening on http:localhost:4000"));
